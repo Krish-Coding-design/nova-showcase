@@ -1,0 +1,498 @@
+/* ============================================================
+   Nova — startup showcase mockup
+   Portfolio/demo only. Dark, sleek SaaS aesthetic:
+   near-black navy ground + a violet accent.
+   ============================================================ */
+
+:root {
+  --bg: #0a0a12;
+  --bg-2: #0d0d1a;
+  --panel: rgba(255, 255, 255, 0.03);
+  --panel-border: rgba(255, 255, 255, 0.08);
+  --text: #ecebf5;
+  --text-dim: #9b9ab0;
+  --accent: #8b5cf6;
+  --accent-bright: #a855f7;
+  --accent-glow: rgba(139, 92, 246, 0.35);
+
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter,
+    "Helvetica Neue", Arial, sans-serif;
+
+  --maxw: 1080px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* ---------- Scroll-snap ----------
+     `y proximity` nudges the page to settle on a section only when
+     the user already stopped near one — it leaves normal scrolling
+     (including touch/mobile momentum) alone. `scroll-behavior:
+     smooth` eases the nudge.
+
+     NOTE: `mandatory` would force a full-section settle on every
+     scroll, which feels jerky on touch/trackpad momentum, so we use
+     `proximity` instead. Scroll-snap can still feel off — the
+     "settle" speed is browser-controlled (not tunable in CSS). If it
+     needs more work, options to try: drop `scroll-behavior: smooth`,
+     reduce section count, or gate snapping to pointer:fine / wider
+     viewports. The JS fade (see script.js) is independent of snap
+     and works either way. */
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Fixed particle canvas — sits behind everything. */
+#bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  display: block;
+}
+
+/* Subtle radial vignette so text stays readable over the particles. */
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 50% 40%,
+      rgba(10, 10, 18, 0.15) 0%,
+      rgba(10, 10, 18, 0.72) 60%,
+      rgba(10, 10, 18, 0.92) 100%
+    );
+}
+
+/* ---------- Sections ---------- */
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 1.5rem;
+  position: relative;
+}
+
+/* Footer is a full-height, centre-aligned snap section like the rest.
+   The scroll-fade keys off how close the section's centre is to the
+   viewport centre, so centring the content keeps it consistent. */
+
+.section-inner {
+  width: 100%;
+  max-width: var(--maxw);
+
+  /* ---------- Scroll-driven fade ----------
+     script.js writes a 0 -> 1 value into --enter on each
+     [data-section], based on how centered that section is in the
+     viewport (1 = centered, 0 = a viewport-height away). We map
+     that onto opacity + a small upward slide, so each section
+     fades/lifts out as it leaves and the next fades in as it
+     arrives. Same "scroll position -> CSS custom property, motion
+     lives in CSS" approach as the sanskruti-plumbing wave-wipe.
+
+     --enter defaults to 1 so the page is fully visible before JS
+     runs (and when reduced motion is preferred — see below). */
+  --enter: 1;
+  opacity: var(--enter);
+  transform: translateY(calc((1 - var(--enter)) * 42px));
+  transition: opacity 0.12s linear, transform 0.12s linear;
+  will-change: opacity, transform;
+}
+
+/* ---------- Typography ---------- */
+.eyebrow {
+  margin: 0 0 1rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+}
+
+h1 {
+  margin: 0 0 1.25rem;
+  font-size: clamp(2.4rem, 6vw, 4.25rem);
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  margin: 0 0 2.5rem;
+  font-size: clamp(1.8rem, 3.6vw, 2.75rem);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+/* ---------- Hero ---------- */
+.hero-inner {
+  text-align: center;
+  max-width: 780px;
+  margin-inline: auto;
+}
+
+.subhead {
+  margin: 0 auto 2rem;
+  max-width: 46ch;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  color: var(--text-dim);
+}
+
+.cta-row {
+  display: flex;
+  gap: 0.9rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-note {
+  margin: 1.25rem 0 0;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  animation: bob 2.4s ease-in-out infinite;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease,
+    background 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-bright));
+  color: #fff;
+  box-shadow: 0 0 30px var(--accent-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 46px var(--accent-glow);
+}
+
+.btn-ghost {
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--panel-border);
+}
+
+.btn-ghost:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+}
+
+/* ---------- Features ---------- */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.feature-card {
+  padding: 1.75rem;
+  border-radius: 16px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  /* Hover glow + scale. */
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  border-color: var(--accent);
+  box-shadow: 0 0 40px var(--accent-glow);
+}
+
+.feature-icon {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 1rem;
+  padding: 10px;
+  border-radius: 12px;
+  color: var(--accent-bright);
+  background: rgba(139, 92, 246, 0.12);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+}
+
+.feature-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.feature-card p {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.95rem;
+}
+
+/* ---------- Pricing ---------- */
+.plan-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.plan {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1.75rem;
+  border-radius: 16px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  position: relative;
+}
+
+/* The one highlighted plan. */
+.plan--featured {
+  border-color: var(--accent);
+  box-shadow: 0 0 60px var(--accent-glow);
+  transform: scale(1.04);
+  background: rgba(139, 92, 246, 0.08);
+}
+
+.plan-badge {
+  position: absolute;
+  top: -0.8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.25rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-bright));
+}
+
+.plan-price {
+  margin: 0.4rem 0 1.25rem;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.plan-price span {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.plan-list {
+  list-style: none;
+  margin: 0 0 1.75rem;
+  padding: 0;
+  flex: 1;
+}
+
+.plan-list li {
+  padding: 0.45rem 0 0.45rem 1.5rem;
+  position: relative;
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.plan-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--accent-bright);
+  font-weight: 700;
+}
+
+.plan .btn {
+  text-align: center;
+}
+
+/* ---------- Footer ---------- */
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.4fr;
+  gap: 2rem;
+  align-items: center;
+  padding-bottom: 3rem;
+}
+
+.wordmark {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  background: linear-gradient(135deg, var(--text), var(--accent-bright));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-brand p {
+  margin: 0.35rem 0 0;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.footer-social {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.footer-social a {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  padding: 9px;
+  border-radius: 10px;
+  color: var(--text-dim);
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  transition: color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.footer-social a:hover {
+  color: var(--accent-bright);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.footer-social svg {
+  width: 100%;
+  height: 100%;
+}
+
+.footer-meta {
+  text-align: right;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+}
+
+.footer-meta p {
+  margin: 0.2rem 0;
+}
+
+.disclaimer {
+  color: rgba(155, 154, 176, 0.7);
+}
+
+/* ---------- Load-in animation (hero) ----------
+   Each [data-animate] element starts hidden and slightly low, then
+   rises in. --i staggers the delay. */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 0.12s + 0.15s);
+}
+
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(6px);
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+  .feature-grid,
+  .plan-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .plan--featured {
+    transform: none;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer-meta {
+    text-align: center;
+  }
+
+  .snap-section {
+    padding: 5rem 1.25rem;
+  }
+}
+
+/* ---------- Reduced motion ----------
+   Turn off snap, the scroll-fade, the load-in, and the particle
+   spin (handled in JS). Everything is shown, statically. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-snap-type: none;
+    scroll-behavior: auto;
+  }
+
+  .section-inner {
+    --enter: 1 !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none;
+  }
+
+  [data-animate] {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .scroll-hint {
+    animation: none;
+  }
+}
