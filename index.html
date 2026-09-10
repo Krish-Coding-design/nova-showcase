@@ -46,8 +46,9 @@
           The AI that runs<br />your busywork.
         </h1>
         <p class="subhead" data-animate style="--i: 2">
-          Nova drafts your replies, tidies your calendar, and turns messy
-          notes into done tasks — so you spend the day on work that matters.
+          Nova is an AI assistant for the admin around your real work — drafting
+          replies in your voice, untangling your calendar, and turning messy
+          notes into tracked tasks. You review and approve; Nova does the rest.
         </p>
         <div class="cta-row" data-animate style="--i: 3">
           <!-- Demo only: links go nowhere. -->
@@ -57,15 +58,18 @@
         <p class="hero-note" data-animate style="--i: 4">
           No card required · 2-minute setup
         </p>
+        <p class="hero-trust" data-animate style="--i: 5">
+          Trusted by teams at Loomly · Fernback Labs · Aterra · Highnote
+        </p>
       </div>
-      <div class="scroll-hint" aria-hidden="true" data-animate style="--i: 5">
+      <div class="scroll-hint" aria-hidden="true" data-animate style="--i: 6">
         Scroll ↓
       </div>
     </section>
 
     <!-- ============================================================
          SECTION 2 — FEATURES
-         Three cards, each with a hover glow + scale (CSS :hover).
+         Three cards, each with a hover glow + lift (CSS :hover).
          ============================================================ -->
     <section class="snap-section features" data-section>
       <div class="section-inner">
@@ -81,8 +85,9 @@
             </span>
             <h3>Inbox on autopilot</h3>
             <p>
-              Nova reads the thread, drafts a reply in your voice, and flags
-              only the messages that actually need you.
+              Nova reads the whole thread, drafts a reply that sounds like you,
+              and sends it once you approve. Routine confirmations it can clear
+              on its own; anything sensitive it holds back and flags.
             </p>
           </article>
 
@@ -96,8 +101,9 @@
             </span>
             <h3>Self-healing calendar</h3>
             <p>
-              Double-booked? Nova reshuffles, protects your focus blocks, and
-              sends the reschedule note before you notice.
+              When meetings collide, Nova reshuffles the movable ones and guards
+              your focus blocks. It sends the reschedule notes itself, so most
+              clashes are fixed before you even see them.
             </p>
           </article>
 
@@ -110,8 +116,9 @@
             </span>
             <h3>Notes to tasks</h3>
             <p>
-              Paste a wall of meeting notes. Nova returns owners, due dates,
-              and a clean checklist synced to your tracker.
+              Paste a wall of meeting notes and Nova pulls out every action item,
+              owner, and due date. The clean checklist syncs straight to Linear,
+              Asana, or Notion.
             </p>
           </article>
         </div>
@@ -119,13 +126,57 @@
     </section>
 
     <!-- ============================================================
-         SECTION 3 — PRICING
-         Middle plan is highlighted via .plan--featured.
+         SECTION 3 — HOW IT WORKS  (new)
+         Three numbered steps. Same scroll-fade + hover pattern as the
+         feature cards — it's a [data-section] with a .section-inner,
+         so script.js picks it up with no changes.
+         ============================================================ -->
+    <section class="snap-section how" data-section>
+      <div class="section-inner">
+        <p class="eyebrow">How it works</p>
+        <h2>Set up once. Nova runs in the background.</h2>
+        <p class="section-lead">
+          No workflow builder and no rules to maintain — connect your tools,
+          set what needs your sign-off, and Nova learns the rest.
+        </p>
+        <ol class="steps">
+          <li class="step">
+            <span class="step-num" aria-hidden="true">1</span>
+            <h3>Connect your tools</h3>
+            <p>
+              Link your inbox, calendar, and task tracker in a couple of clicks.
+              Nova reads recent history to pick up your tone and priorities.
+            </p>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">2</span>
+            <h3>Set your guardrails</h3>
+            <p>
+              Tell Nova what it can send on its own and what needs your approval.
+              Adjust the boundaries any time from one screen.
+            </p>
+          </li>
+          <li class="step">
+            <span class="step-num" aria-hidden="true">3</span>
+            <h3>Review the daily digest</h3>
+            <p>
+              Each morning, approve the drafts Nova prepared and see everything
+              it already handled while you were away.
+            </p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 4 — PRICING
+         Middle plan is highlighted via .plan--featured, and carries an
+         extra "Also included" list the other plans don't have.
          ============================================================ -->
     <section class="snap-section pricing" data-section>
       <div class="section-inner">
         <p class="eyebrow">Pricing</p>
-        <h2>Start free. Upgrade when Nova pays for itself.</h2>
+        <h2>Start free. Upgrade anytime.</h2>
         <div class="plan-grid">
           <article class="plan">
             <h3>Solo</h3>
@@ -149,6 +200,14 @@
               <li>Notes-to-tasks + sync</li>
               <li>Priority support</li>
             </ul>
+            <div class="plan-extra">
+              <p class="plan-extra-title">Also included</p>
+              <ul>
+                <li>SOC 2 Type II compliance</li>
+                <li>Slack, Linear &amp; Notion integrations</li>
+                <li>90-day action history</li>
+              </ul>
+            </div>
             <a class="btn btn-primary" href="#">Start free trial</a>
           </article>
 
@@ -168,32 +227,103 @@
     </section>
 
     <!-- ============================================================
-         SECTION 4 — FOOTER
-         Fake social links. Not a full-height snap target — it snaps
-         to its end so the page bottoms out cleanly.
+         SECTION 5 — TESTIMONIALS  (new)
+         Fake quotes, placeholder names/roles. Quote cards reuse the
+         feature-card hover treatment.
+         ============================================================ -->
+    <section class="snap-section testimonials" data-section>
+      <div class="section-inner">
+        <p class="eyebrow">Testimonials</p>
+        <h2>Teams that stopped doing their own admin.</h2>
+        <div class="quote-grid">
+          <figure class="quote">
+            <blockquote>
+              Nova clears my inbox before I'm even at my desk. I approve a dozen
+              drafts over coffee and the rest of the day is actual work.
+            </blockquote>
+            <figcaption>
+              <strong>Maya Chen</strong>
+              Head of Ops, Fernback Labs
+            </figcaption>
+          </figure>
+
+          <figure class="quote">
+            <blockquote>
+              The calendar fixing alone paid for it. I haven't manually
+              rescheduled a meeting in two months.
+            </blockquote>
+            <figcaption>
+              <strong>Devin Okafor</strong>
+              Founder, Aterra
+            </figcaption>
+          </figure>
+
+          <figure class="quote">
+            <blockquote>
+              Our meeting notes used to die in a doc. Now every decision shows
+              up as a task with an owner and a date.
+            </blockquote>
+            <figcaption>
+              <strong>Priya Raman</strong>
+              Product Lead, Highnote
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 6 — FOOTER
+         Fake link columns (Product / Company / Follow) + a spanning
+         meta row. All links inert.
          ============================================================ -->
     <section class="snap-section site-footer" data-section>
       <div class="section-inner footer-inner">
         <div class="footer-brand">
           <span class="wordmark">Nova</span>
-          <p>The AI that runs your busywork.</p>
+          <p class="footer-tagline">
+            Less busywork. More of the work you're actually here for.
+          </p>
         </div>
 
-        <nav class="footer-social" aria-label="Social links (demo)">
-          <!-- Demo only: none of these go anywhere. -->
-          <a href="#" aria-label="Nova on X">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.6 8.7L23 22h-6.8l-5-6.6L5.4 22H2l8.2-9.4L1.5 2h6.9l4.5 6 5.9-6zm-2.4 18h1.9L7.6 3.9H5.6L16.5 20z"/></svg>
-          </a>
-          <a href="#" aria-label="Nova on GitHub">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
-          </a>
-          <a href="#" aria-label="Nova on LinkedIn">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.4 8.65 22 11.1 22 14.3V21h-4v-5.9c0-1.4-.03-3.2-1.95-3.2-1.96 0-2.26 1.53-2.26 3.1V21h-4z"/></svg>
-          </a>
-          <a href="#" aria-label="Nova on Discord">
-            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4.4A19 19 0 0 0 15.3 3l-.24.5a13 13 0 0 1 4.14 2.1 13 13 0 0 0-11 0A13 13 0 0 1 12.4 3.5L12.2 3A19 19 0 0 0 4 4.4 20 20 0 0 0 1 18.8a19 19 0 0 0 5.8 2.9l.75-1.35a11 11 0 0 1-1.9-.9l.47-.35a9.3 9.3 0 0 0 7.98 0l.47.35c-.6.36-1.24.66-1.9.9L16 21.7a19 19 0 0 0 5.8-2.9A20 20 0 0 0 20 4.4zM9 15.4c-.94 0-1.7-.86-1.7-1.9s.75-1.9 1.7-1.9 1.7.86 1.7 1.9-.75 1.9-1.7 1.9zm6 0c-.94 0-1.7-.86-1.7-1.9s.75-1.9 1.7-1.9 1.7.86 1.7 1.9-.75 1.9-1.7 1.9z"/></svg>
-          </a>
+        <!-- Demo only: none of these links go anywhere. -->
+        <nav class="footer-col" aria-label="Product">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#">Features</a></li>
+            <li><a href="#">Pricing</a></li>
+            <li><a href="#">How it works</a></li>
+            <li><a href="#">Changelog</a></li>
+          </ul>
         </nav>
+
+        <nav class="footer-col" aria-label="Company">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer-col footer-follow">
+          <h4>Follow</h4>
+          <nav class="footer-social" aria-label="Social links (demo)">
+            <a href="#" aria-label="Nova on X">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-7.6 8.7L23 22h-6.8l-5-6.6L5.4 22H2l8.2-9.4L1.5 2h6.9l4.5 6 5.9-6zm-2.4 18h1.9L7.6 3.9H5.6L16.5 20z"/></svg>
+            </a>
+            <a href="#" aria-label="Nova on GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48l-.01-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85l-.01 2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
+            </a>
+            <a href="#" aria-label="Nova on LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 5 8.5a2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM10 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C21.4 8.65 22 11.1 22 14.3V21h-4v-5.9c0-1.4-.03-3.2-1.95-3.2-1.96 0-2.26 1.53-2.26 3.1V21h-4z"/></svg>
+            </a>
+            <a href="#" aria-label="Nova on Discord">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4.4A19 19 0 0 0 15.3 3l-.24.5a13 13 0 0 1 4.14 2.1 13 13 0 0 0-11 0A13 13 0 0 1 12.4 3.5L12.2 3A19 19 0 0 0 4 4.4 20 20 0 0 0 1 18.8a19 19 0 0 0 5.8 2.9l.75-1.35a11 11 0 0 1-1.9-.9l.47-.35a9.3 9.3 0 0 0 7.98 0l.47.35c-.6.36-1.24.66-1.9.9L16 21.7a19 19 0 0 0 5.8-2.9A20 20 0 0 0 20 4.4zM9 15.4c-.94 0-1.7-.86-1.7-1.9s.75-1.9 1.7-1.9 1.7.86 1.7 1.9-.75 1.9-1.7 1.9zm6 0c-.94 0-1.7-.86-1.7-1.9s.75-1.9 1.7-1.9 1.7.86 1.7 1.9-.75 1.9-1.7 1.9z"/></svg>
+            </a>
+          </nav>
+        </div>
 
         <div class="footer-meta">
           <p>&copy; <span id="year">2026</span> Nova Labs (fictional).</p>

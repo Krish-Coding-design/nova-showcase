@@ -80,7 +80,10 @@ body {
     );
 }
 
-/* ---------- Sections ---------- */
+/* ---------- Sections ----------
+   Vertical padding is clamped against viewport height so it shrinks
+   on short screens — that plus the trimmed type below is what keeps
+   each (now content-heavier) section inside one viewport. */
 .snap-section {
   scroll-snap-align: start;
   scroll-snap-stop: always;
@@ -88,7 +91,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6rem 1.5rem;
+  padding: clamp(2rem, 6vh, 4.5rem) 1.5rem;
   position: relative;
 }
 
@@ -109,6 +112,9 @@ body {
      arrives. Same "scroll position -> CSS custom property, motion
      lives in CSS" approach as the sanskruti-plumbing wave-wipe.
 
+     Adding more [data-section]s (How it works, Testimonials) needs
+     no JS change — the loop already handles any count.
+
      --enter defaults to 1 so the page is fully visible before JS
      runs (and when reduced motion is preferred — see below). */
   --enter: 1;
@@ -120,7 +126,7 @@ body {
 
 /* ---------- Typography ---------- */
 .eyebrow {
-  margin: 0 0 1rem;
+  margin: 0 0 0.65rem;
   font-size: 0.8rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -129,37 +135,45 @@ body {
 
 h1 {
   margin: 0 0 1.25rem;
-  font-size: clamp(2.4rem, 6vw, 4.25rem);
-  line-height: 1.05;
+  font-size: clamp(2.2rem, 5.5vw, 3.9rem);
+  line-height: 1.06;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
 h2 {
-  margin: 0 0 2.5rem;
-  font-size: clamp(1.8rem, 3.6vw, 2.75rem);
+  margin: 0 0 1.25rem;
+  font-size: clamp(1.7rem, 3.2vw, 2.5rem);
   line-height: 1.15;
   font-weight: 700;
   letter-spacing: -0.015em;
 }
 
 h3 {
-  margin: 0 0 0.6rem;
-  font-size: 1.2rem;
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
   font-weight: 600;
+}
+
+/* Intro line under an h2 (How it works). */
+.section-lead {
+  margin: 0 0 2rem;
+  max-width: 58ch;
+  color: var(--text-dim);
+  font-size: clamp(0.95rem, 1.3vw, 1.05rem);
 }
 
 /* ---------- Hero ---------- */
 .hero-inner {
   text-align: center;
-  max-width: 780px;
+  max-width: 800px;
   margin-inline: auto;
 }
 
 .subhead {
-  margin: 0 auto 2rem;
-  max-width: 46ch;
-  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  margin: 0 auto 1.75rem;
+  max-width: 60ch;
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
   color: var(--text-dim);
 }
 
@@ -171,14 +185,21 @@ h3 {
 }
 
 .hero-note {
-  margin: 1.25rem 0 0;
+  margin: 1.1rem 0 0;
   font-size: 0.85rem;
   color: var(--text-dim);
 }
 
+.hero-trust {
+  margin: 1.4rem 0 0;
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: rgba(155, 154, 176, 0.75);
+}
+
 .scroll-hint {
   position: absolute;
-  bottom: 2rem;
+  bottom: 1.6rem;
   left: 50%;
   transform: translateX(-50%);
   font-size: 0.75rem;
@@ -223,34 +244,61 @@ h3 {
   border-color: var(--accent);
 }
 
-/* ---------- Features ---------- */
-.feature-grid {
+/* ---------- Shared card grids (features / steps / quotes) ---------- */
+.feature-grid,
+.steps,
+.quote-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
 }
 
-.feature-card {
-  padding: 1.75rem;
+.steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+/* Shared card surface + hover glow/lift. */
+.feature-card,
+.step,
+.quote {
+  padding: 1.5rem;
   border-radius: 16px;
   background: var(--panel);
   border: 1px solid var(--panel-border);
-  /* Hover glow + scale. */
   transition: transform 0.25s ease, box-shadow 0.25s ease,
     border-color 0.25s ease;
 }
 
-.feature-card:hover {
-  transform: translateY(-6px) scale(1.03);
+.feature-card:hover,
+.step:hover,
+.quote:hover {
+  transform: translateY(-6px);
   border-color: var(--accent);
   box-shadow: 0 0 40px var(--accent-glow);
 }
 
+/* Feature cards additionally scale up a touch, matching the original. */
+.feature-card:hover {
+  transform: translateY(-6px) scale(1.03);
+}
+
+.feature-card p,
+.step p {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+/* ---------- Features ---------- */
 .feature-icon {
   display: inline-flex;
-  width: 44px;
-  height: 44px;
-  margin-bottom: 1rem;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 0.9rem;
   padding: 10px;
   border-radius: 12px;
   color: var(--accent-bright);
@@ -263,10 +311,18 @@ h3 {
   height: 100%;
 }
 
-.feature-card p {
-  margin: 0;
-  color: var(--text-dim);
+/* ---------- How it works ---------- */
+.step-num {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-bottom: 0.85rem;
+  border-radius: 10px;
   font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-bright));
 }
 
 /* ---------- Pricing ---------- */
@@ -280,7 +336,7 @@ h3 {
 .plan {
   display: flex;
   flex-direction: column;
-  padding: 2rem 1.75rem;
+  padding: 1.15rem 1.35rem;
   border-radius: 16px;
   background: var(--panel);
   border: 1px solid var(--panel-border);
@@ -312,29 +368,34 @@ h3 {
 }
 
 .plan-price {
-  margin: 0.4rem 0 1.25rem;
+  margin: 0.2rem 0 0.7rem;
   color: var(--text-dim);
   font-size: 0.9rem;
 }
 
 .plan-price span {
-  font-size: 2.4rem;
+  font-size: 1.85rem;
   font-weight: 700;
   color: var(--text);
 }
 
+/* flex:1 pushes the CTA to the bottom of whichever card is tallest.
+   The featured card's extra block sits below this list, so on that
+   card the button ends up a little lower than the others — acceptable
+   for the highlighted plan. */
 .plan-list {
   list-style: none;
-  margin: 0 0 1.75rem;
+  margin: 0 0 0.7rem;
   padding: 0;
   flex: 1;
 }
 
 .plan-list li {
-  padding: 0.45rem 0 0.45rem 1.5rem;
+  padding: 0.22rem 0 0.22rem 1.4rem;
   position: relative;
   color: var(--text-dim);
-  font-size: 0.92rem;
+  font-size: 0.85rem;
+  line-height: 1.4;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -346,17 +407,87 @@ h3 {
   font-weight: 700;
 }
 
+/* Extra "Also included" list — only on the featured plan. */
+.plan-extra {
+  margin: 0 0 0.7rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.plan-extra-title {
+  margin: 0 0 0.35rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+}
+
+.plan-extra ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.plan-extra li {
+  position: relative;
+  padding: 0.12rem 0 0.12rem 1rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.plan-extra li::before {
+  content: "+";
+  position: absolute;
+  left: 0;
+  color: var(--accent-bright);
+  font-weight: 700;
+}
+
 .plan .btn {
   text-align: center;
+}
+
+/* ---------- Testimonials ---------- */
+.quote {
+  display: flex;
+  flex-direction: column;
+}
+
+.quote blockquote {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--text);
+}
+
+.quote blockquote::before {
+  content: "\201C";
+  color: var(--accent-bright);
+  font-size: 1.6rem;
+  line-height: 0;
+  margin-right: 0.15rem;
+  vertical-align: -0.35rem;
+}
+
+.quote figcaption {
+  margin-top: auto;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.quote figcaption strong {
+  display: block;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 /* ---------- Footer ---------- */
 .footer-inner {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1.4fr;
-  gap: 2rem;
-  align-items: center;
-  padding-bottom: 3rem;
+  grid-template-columns: 1.7fr 1fr 1fr 1fr;
+  gap: 1.75rem 1.5rem;
+  align-items: start;
 }
 
 .wordmark {
@@ -369,22 +500,51 @@ h3 {
   -webkit-text-fill-color: transparent;
 }
 
-.footer-brand p {
-  margin: 0.35rem 0 0;
+.footer-tagline {
+  margin: 0.55rem 0 0;
   color: var(--text-dim);
   font-size: 0.9rem;
+  max-width: 32ch;
+}
+
+.footer-col h4 {
+  margin: 0 0 0.8rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.footer-col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-col li {
+  margin: 0.4rem 0;
+}
+
+.footer-col a {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.15s ease;
+}
+
+.footer-col a:hover {
+  color: var(--accent-bright);
 }
 
 .footer-social {
   display: flex;
-  gap: 0.75rem;
-  justify-content: center;
+  gap: 0.6rem;
 }
 
 .footer-social a {
   display: inline-flex;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   padding: 9px;
   border-radius: 10px;
   color: var(--text-dim);
@@ -404,14 +564,22 @@ h3 {
   height: 100%;
 }
 
+/* Spanning meta row under the columns. */
 .footer-meta {
-  text-align: right;
-  font-size: 0.82rem;
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.5rem;
+  margin-top: 0.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--panel-border);
+  font-size: 0.8rem;
   color: var(--text-dim);
 }
 
 .footer-meta p {
-  margin: 0.2rem 0;
+  margin: 0;
 }
 
 .disclaimer {
@@ -425,7 +593,7 @@ h3 {
   opacity: 0;
   transform: translateY(20px);
   animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
-  animation-delay: calc(var(--i, 0) * 0.12s + 0.15s);
+  animation-delay: calc(var(--i, 0) * 0.11s + 0.15s);
 }
 
 @keyframes rise {
@@ -445,9 +613,19 @@ h3 {
   }
 }
 
+/* On short viewports the hero content nearly reaches the bottom, so
+   drop the "Scroll" hint rather than let it collide with the trust line. */
+@media (max-height: 660px) {
+  .scroll-hint {
+    display: none;
+  }
+}
+
 /* ---------- Responsive ---------- */
-@media (max-width: 720px) {
+@media (max-width: 860px) {
   .feature-grid,
+  .steps,
+  .quote-grid,
   .plan-grid {
     grid-template-columns: 1fr;
   }
@@ -457,16 +635,15 @@ h3 {
   }
 
   .footer-inner {
-    grid-template-columns: 1fr;
-    text-align: center;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-brand {
+    grid-column: 1 / -1;
   }
 
   .footer-meta {
-    text-align: center;
-  }
-
-  .snap-section {
-    padding: 5rem 1.25rem;
+    flex-direction: column;
   }
 }
 
